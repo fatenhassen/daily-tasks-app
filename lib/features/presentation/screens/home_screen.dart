@@ -52,11 +52,11 @@ class HomeScreen extends StatelessWidget {
               SafeArea(
                 child: SingleChildScrollView(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    padding: const EdgeInsets.all(24.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 24.0),
                         const Text(
                           "My Daily Tasks",
                           style: TextStyle(
@@ -65,14 +65,14 @@ class HomeScreen extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        const SizedBox(height: 30),
+                        const SizedBox(height: 30.0),
                         // Progress card
                         _buildProgressCard(
                           progress,
                           completedCount,
                           totalTasks,
                         ),
-                        const SizedBox(height: 30),
+                        const SizedBox(height: 30.0),
                         // Pending tasks section
                         if (pendingTasks.isEmpty && completedTasks.isEmpty)
                           _buildEmptyState()
@@ -84,24 +84,27 @@ class HomeScreen extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          const SizedBox(height: 15),
+                          const SizedBox(height: 16.0),
                           ListView.builder(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: pendingTasks.length,
-                            itemBuilder: (context, index) => TaskItemWidget(
-                              task: pendingTasks[index],
-                              onToggleComplete: (isCompleted) {
-                                final updatedTask = pendingTasks[index]
-                                    .copyWith(isCompleted: isCompleted);
-                                cubit.updateTask(
-                                  pendingTasks[index],
-                                  updatedTask,
-                                );
-                              },
-                              onDelete: () {
-                                cubit.deleteTask(pendingTasks[index]);
-                              },
+                            itemBuilder: (context, index) => Padding(
+                              padding: const EdgeInsets.only(bottom: 16.0),
+                              child: TaskItemWidget(
+                                task: pendingTasks[index],
+                                onToggleComplete: (isCompleted) {
+                                  final updatedTask = pendingTasks[index]
+                                      .copyWith(isCompleted: isCompleted);
+                                  cubit.updateTask(
+                                    pendingTasks[index],
+                                    updatedTask,
+                                  );
+                                },
+                                onDelete: () {
+                                  cubit.deleteTask(pendingTasks[index]);
+                                },
+                              ),
                             ),
                           ),
                         ],
@@ -137,7 +140,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
                         ],
-                        const SizedBox(height: 20), // Add bottom padding
+                        const SizedBox(height: 24.0), // Add bottom padding
                       ],
                     ),
                   ),

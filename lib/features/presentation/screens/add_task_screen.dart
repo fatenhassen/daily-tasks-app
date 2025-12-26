@@ -150,16 +150,23 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
       backgroundColor: Colors.white,
       elevation: 0,
       leadingWidth: 80,
-      leading: TextButton(
-        onPressed: () => Navigator.pop(context),
-        child: const Text(
-          "Cancel",
-          style: TextStyle(color: Colors.grey, fontSize: 16),
+      leading: Padding(
+        padding: const EdgeInsets.only(left: 8.0),
+        child: TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text(
+            "Cancel",
+            style: TextStyle(color: Colors.grey, fontSize: 16),
+          ),
         ),
       ),
       title: const Text(
         "New Task",
-        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        style: TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.bold,
+          fontSize: 20,
+        ),
       ),
       centerTitle: true,
     );
@@ -172,46 +179,65 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Task Title Field
-          TaskInputField(
-            controller: _titleController,
-            hintText: 'What needs to be done?',
-            validator: (value) {
-              if (value == null || value.trim().isEmpty) {
-                return 'Please enter a task title';
-              }
-              return null;
-            },
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 24.0,
+              vertical: 16.0,
+            ),
+            child: TaskInputField(
+              controller: _titleController,
+              hintText: 'What needs to be done?',
+              validator: (value) {
+                if (value == null || value.trim().isEmpty) {
+                  return 'Please enter a task title';
+                }
+                return null;
+              },
+            ),
           ),
 
-          const SizedBox(height: 32),
+          const SizedBox(height: 24.0),
+
+          // Divider
+          const Divider(height: 1, thickness: 1, color: Color(0xFFEEEEEE)),
+          const SizedBox(height: 24.0),
 
           // Category Selection
-          CategorySelection(
-            selectedCategoryId: _selectedCategory,
-            categories: _categories,
-            onCategorySelected: (categoryId) {
-              setState(() {
-                _selectedCategory = categoryId;
-              });
-            },
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            child: CategorySelection(
+              selectedCategoryId: _selectedCategory,
+              categories: _categories,
+              onCategorySelected: (categoryId) {
+                setState(() {
+                  _selectedCategory = categoryId;
+                });
+              },
+            ),
           ),
 
-          const SizedBox(height: 24),
+          const SizedBox(height: 32.0),
 
           // Task Details Section
-          TaskDetailsSection(
-            selectedDate: _selectedDate,
-            selectedPriority: _selectedPriority,
-            priorities: _priorities,
-            onDatePressed: () => _selectDate(context),
-            onPrioritySelected: (priority) {
-              setState(() {
-                _selectedPriority = priority;
-              });
-            },
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            child: TaskDetailsSection(
+              selectedDate: _selectedDate,
+              selectedPriority: _selectedPriority,
+              priorities: _priorities,
+              onDatePressed: () => _selectDate(context),
+              onPrioritySelected: (priority) {
+                setState(() {
+                  _selectedPriority = priority;
+                });
+              },
+            ),
           ),
 
           const Spacer(),
+
+          // Bottom safe area padding
+          const SizedBox(height: 24.0),
 
           // Save Button
           Padding(
